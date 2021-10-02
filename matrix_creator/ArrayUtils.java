@@ -1,7 +1,7 @@
 package matrix_creator;
 
 public class ArrayUtils {
-	public static int[][] flip2dArray(int[][] in) {
+	public static int[][] flip_2d_array(int[][] in) {
 		int out[][] = new int[in.length][in[0].length];
 
 		for (int i = 0; i < in.length; i++) {
@@ -13,7 +13,7 @@ public class ArrayUtils {
 		return out;
 	}
 
-	public static int[][] rotate2dArray(int[][] in) {
+	public static int[][] rotate_2d_array(int[][] in) {
 		int[][] out = new int[in[0].length][in.length];
 
 		for (int i = 0; i < in.length; i++) {
@@ -25,16 +25,16 @@ public class ArrayUtils {
 		return out;
 	}
 
-	public static boolean containsIdentical2dArray(int[][][] A, int[][] B) {
+	public static boolean contains_identical_2d_array(int[][][] A, int[][] B) {
 		for (int i = 0; i < A.length; i++) {
-			if (isIdentical2dArray(A[i], B))
+			if (is_identical_2d_array(A[i], B))
 				return true;
 		}
 
 		return false;
 	}
 
-	public static boolean isIdentical2dArray(int[][] A, int[][] B) {
+	public static boolean is_identical_2d_array(int[][] A, int[][] B) {
 		if (A.length != B.length || A[0].length != A[0].length)
 			return false;
 
@@ -48,7 +48,7 @@ public class ArrayUtils {
 		return true;
 	}
 
-	public static void print_2dArray(int[][] array) {
+	public static void print_2d_array(int[][] array) {
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0; j < array[0].length; j++) {
 				System.out.print(array[i][j] + " ");
@@ -58,7 +58,7 @@ public class ArrayUtils {
 		}
 	}
 
-	public static int[][] add_row_to_2dArray(int[][] array, int[] row) {
+	public static int[][] add_row_to_2d_array(int[][] array, int[] row) {
 		int[][] newArray = new int[array.length + 1][];
 
 		for (int i = 0; i < array.length; i++) {
@@ -70,7 +70,7 @@ public class ArrayUtils {
 		return newArray;
 	}
 
-	public static int[][][] add_layer_to_3dArray(int[][][] array, int[][] layer) {
+	public static int[][][] add_layer_to_3d_array(int[][][] array, int[][] layer) {
 		int[][][] newArray = new int[array.length + 1][][];
 
 		for (int i = 0; i < array.length; i++) {
@@ -82,7 +82,7 @@ public class ArrayUtils {
 		return newArray;
 	}
 
-	public static int[][][] add_3dArrays(int[][][] A, int[][][] B) {
+	public static int[][][] add_3d_arrays(int[][][] A, int[][][] B) {
 		int[][][] C = new int[A.length + B.length][][];
 
 		for (int i = 0; i < A.length; i++) {
@@ -96,7 +96,7 @@ public class ArrayUtils {
 		return C;
 	}
 
-	public static int[][] add_2dArrays(int[][] A, int[][] B) {
+	public static int[][] add_2d_arrays(int[][] A, int[][] B) {
 		int[][] C = new int[A.length + B.length][];
 
 		for (int i = 0; i < A.length; i++) {
@@ -110,7 +110,7 @@ public class ArrayUtils {
 		return C;
 	}
 
-	public static int[] add_1dArrays(int[] A, int[] B) {
+	public static int[] add_1d_arrays(int[] A, int[] B) {
 		int[] C = new int[A.length + B.length];
 
 		for (int i = 0; i < A.length; i++) {
@@ -124,7 +124,7 @@ public class ArrayUtils {
 		return C;
 	}
 
-	public static int[] convert2dTo1d(int[][] in) {
+	public static int[] convert_2d_to_1d(int[][] in) {
 		int[] out = new int[in.length * in[0].length];
 
 		for (int i = 0; i < in.length; i++) {

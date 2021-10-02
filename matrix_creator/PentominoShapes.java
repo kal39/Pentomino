@@ -3,11 +3,11 @@ package matrix_creator;
 import java.lang.Character;
 
 /*
- * The TetrominoShapes class deals with generating all possible orientations for any given tetromino.
+ * The PentominoShapes class deals with generating all possible orientations for any given pentomino.
  * Requires the ArrayUtils class.
  */
 
-public class TetrominoShapes {
+public class PentominoShapes {
 
 	/*
 	 * For testing purposes:
@@ -16,49 +16,49 @@ public class TetrominoShapes {
 	public static void main(String[] args) {
 		char[] allLetters = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F' };
 
-		// print_tetromino(get_tetromino('L'));
-		// print_all_tetrominos(get_tetromino_variations('L'));
-		print_all_tetrominos(get_all_tetromino_variations(allLetters));
+		// print_pentomino(get_pentomino('L'));
+		// print_all_pentominos(get_pentomino_variations('L'));
+		print_all_pentominos(get_all_pentomino_variations(allLetters));
 	}
 
 	/*
-	 * Returns all possible orientations for all tetrominos in an array
+	 * Returns all possible orientations for all pentominos in an array
 	 */
 
-	public static int[][][] get_all_tetromino_variations(char[] pieces) {
+	public static int[][][] get_all_pentomino_variations(char[] pieces) {
 		int[][][] configs = new int[0][0][0];
 
 		for (int i = 0; i < pieces.length; i++) {
-			configs = ArrayUtils.add_3dArrays(configs, get_tetromino_variations(pieces[i]));
+			configs = ArrayUtils.add_3d_arrays(configs, get_pentomino_variations(pieces[i]));
 		}
 
 		return configs;
 	}
 
 	/*
-	 * Returns all possible orientations for a single tetrominos
+	 * Returns all possible orientations for a single pentominos
 	 */
 
-	public static int[][][] get_tetromino_variations(char pieceName) {
-		int[][] tetromino = get_tetromino(pieceName);
+	public static int[][][] get_pentomino_variations(char pieceName) {
+		int[][] pentomino = get_pentomino(pieceName);
 
 		int[][][] configs = new int[0][0][0];
 
 		for (int i = 0; i < 4; i++) {
-			configs = add_tetromino(configs, tetromino);
-			configs = add_tetromino(configs, ArrayUtils.flip2dArray(tetromino));
+			configs = add_pentomino(configs, pentomino);
+			configs = add_pentomino(configs, ArrayUtils.flip_2d_array(pentomino));
 
-			tetromino = ArrayUtils.rotate2dArray(tetromino);
+			pentomino = ArrayUtils.rotate_2d_array(pentomino);
 		}
 
 		return configs;
 	}
 
 	/*
-	 * Returns a 2d array containing the shape of a tetromino
+	 * Returns a 2d array containing the shape of a pentomino
 	 */
 
-	public static int[][] get_tetromino(char pieceName) {
+	public static int[][] get_pentomino(char pieceName) {
 		pieceName = Character.toUpperCase(pieceName);
 
 		switch (pieceName) {
@@ -93,28 +93,28 @@ public class TetrominoShapes {
 	}
 
 	/*
-	 * Adds a tetromino to an array after checking if it's a new configuration
+	 * Adds a pentomino to an array after checking if it's a new configuration
 	 */
 
-	private static int[][][] add_tetromino(int[][][] array, int[][] tetromino) {
-		if (ArrayUtils.containsIdentical2dArray(array, tetromino)) {
+	private static int[][][] add_pentomino(int[][][] array, int[][] pentomino) {
+		if (ArrayUtils.contains_identical_2d_array(array, pentomino)) {
 			return array;
 		} else {
-			return ArrayUtils.add_layer_to_3dArray(array, tetromino);
+			return ArrayUtils.add_layer_to_3d_array(array, pentomino);
 		}
 	}
 
-	private static void print_all_tetrominos(int[][][] tetrominos) {
-		for (int i = 0; i < tetrominos.length; i++) {
-			print_tetromino(tetrominos[i]);
+	private static void print_all_pentominos(int[][][] pentominos) {
+		for (int i = 0; i < pentominos.length; i++) {
+			print_pentomino(pentominos[i]);
 			System.out.println();
 		}
 	}
 
-	private static void print_tetromino(int[][] tetromino) {
-		for (int i = 0; i < tetromino.length; i++) {
-			for (int j = 0; j < tetromino[0].length; j++) {
-				if (tetromino[i][j] == 1)
+	private static void print_pentomino(int[][] pentomino) {
+		for (int i = 0; i < pentomino.length; i++) {
+			for (int j = 0; j < pentomino[0].length; j++) {
+				if (pentomino[i][j] == 1)
 					System.out.print("██");
 				else
 					System.out.print("  ");
@@ -125,7 +125,7 @@ public class TetrominoShapes {
 	}
 
 	/*
-	 * Tetromino shapes:
+	 * Pentomino shapes:
 	 */
 
 	private static int[][][] shapes = { //
