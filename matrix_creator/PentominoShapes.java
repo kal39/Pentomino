@@ -1,6 +1,6 @@
 package matrix_creator;
 
-import java.lang.Character;
+import utils.ArrayUtils;
 
 /*
  * The PentominoShapes class deals with generating all possible orientations for any given pentomino.
@@ -45,9 +45,13 @@ public class PentominoShapes {
 		int[][][] configs = new int[0][0][0];
 
 		for (int i = 0; i < 4; i++) {
+			// check for duplicates and add non-flipped pentomino
 			configs = add_pentomino(configs, pentomino);
+
+			// check for duplicates and add flipped pentomino
 			configs = add_pentomino(configs, ArrayUtils.flip_2d_array(pentomino));
 
+			// rotate pentomino
 			pentomino = ArrayUtils.rotate_2d_array(pentomino);
 		}
 
@@ -59,7 +63,7 @@ public class PentominoShapes {
 	 */
 
 	public static int[][] get_pentomino(char pieceName) {
-		pieceName = Character.toUpperCase(pieceName);
+		pieceName = java.lang.Character.toUpperCase(pieceName);
 
 		switch (pieceName) {
 			case 'X':
@@ -97,6 +101,7 @@ public class PentominoShapes {
 	 */
 
 	private static int[][][] add_pentomino(int[][][] array, int[][] pentomino) {
+		// checks for duplication before adding pentomino
 		if (ArrayUtils.contains_identical_2d_array(array, pentomino)) {
 			return array;
 		} else {
@@ -111,7 +116,7 @@ public class PentominoShapes {
 		}
 	}
 
-	private static void print_pentomino(int[][] pentomino) {
+	public static void print_pentomino(int[][] pentomino) {
 		for (int i = 0; i < pentomino.length; i++) {
 			for (int j = 0; j < pentomino[0].length; j++) {
 				if (pentomino[i][j] == 1)

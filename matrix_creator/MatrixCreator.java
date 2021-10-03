@@ -1,5 +1,7 @@
 package matrix_creator;
 
+import utils.ArrayUtils;
+
 /*
  * The MatrixCreator class deals with generating a 2d array that can be processed by the main solving algorithm
  * Requires the PentominoShapes and ArrayUtils class.
@@ -15,7 +17,7 @@ public class MatrixCreator {
 	 */
 
 	public static void main(String[] args) {
-		printBoards = false;
+		printBoards = true;
 
 		// boardWidth = 5;
 		// boardHeight = 5;
@@ -29,12 +31,14 @@ public class MatrixCreator {
 		// print_board(boards[i]);
 		// }
 
-		char[] allLetters = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F' };
-		int data[][] = create(3, 3, allLetters);
+		// char[] letters = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F'
+		// };
+		char[] letters = { 'U', 'P', 'V' };
+		int data[][] = create(5, 3, letters);
 		ArrayUtils.print_2d_array(data);
 
 		for (int i = 0; i < data.length; i++) {
-			print_board(get_pentomino_location_in_board(data[i], allLetters.length));
+			print_board(get_pentomino_location_in_board(data[i], letters.length, boardWidth, boardHeight));
 			System.out.println();
 		}
 
@@ -50,17 +54,21 @@ public class MatrixCreator {
 
 		int[][] data = new int[0][0];
 
+		// looping through each pentomino piece
 		for (int i = 0; i < pieces.length; i++) {
 			int[][][] configurations = PentominoShapes.get_pentomino_variations(pieces[i]);
 
+			// looping through each pentomino orientations
 			for (int j = 0; j < configurations.length; j++) {
 				int[][] placements = get_placements(configurations[j]);
 
+				// looping through each pentomino placement
 				for (int k = 0; k < placements.length; k++) {
-
+					// first part of the row: the id of the pentomino
 					int[] row = new int[pieces.length];
 					row[i] = 1;
 
+					// adding the placement data to the row
 					row = ArrayUtils.add_1d_arrays(row, placements[k]);
 
 					data = ArrayUtils.add_row_to_2d_array(data, row);
@@ -75,12 +83,12 @@ public class MatrixCreator {
 	 * Gets pentomino location in the board
 	 */
 
-	public static int[][] get_pentomino_location_in_board(int[] data, int letterCount) {
-		int[][] board = new int[boardHeight][boardWidth];
+	public static int[][] get_pentomino_location_in_board(int[] data, int letterCount, int width, int height) {
+		int[][] board = new int[height][width];
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				board[i][j] = data[letterCount + i + j * board[0].length];
+				board[i][j] = data[letterCount + j + i * width];
 			}
 		}
 
@@ -96,6 +104,8 @@ public class MatrixCreator {
 		int[][] placements = new int[0][0];
 
 		for (int i = 0; i < placements3d.length; i++) {
+			// convert the 2d array received from the get_placements_2d() method to a 1d
+			// array
 			placements = ArrayUtils.add_row_to_2d_array(placements, ArrayUtils.convert_2d_to_1d(placements3d[i]));
 		}
 
@@ -141,7 +151,7 @@ public class MatrixCreator {
 		return board;
 	}
 
-	private static void print_board(int[][] board) {
+	public static void print_board(int[][] board) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				if (board[i][j] == 1)
@@ -152,5 +162,7 @@ public class MatrixCreator {
 
 			System.out.println();
 		}
+
+		System.out.println();
 	}
 }
