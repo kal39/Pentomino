@@ -1,19 +1,7 @@
 package algorithm_x;
 
-/*
-If A is empty, the problem is solved; terminate successfully.
-Otherwise choose a column, c (deterministically).
-Choose a row, r, such that A[r, c] = 1 (non-deterministically).
-Include r in the partial solution.
-For each j such that A[r, j] = 1,
-delete column j from matrix A;
-for each i such that A[i, j] = 1,
-delete row i from matrix A.
-Repeat this algorithm recursively on the reduced matrix A.
-*/
-
 import java.util.Arrays;
-import utils.ArrayUtils;
+import utils.*;
 
 public class AlgorithmX {
 	public static void main(String[] args) {
@@ -23,67 +11,51 @@ public class AlgorithmX {
 		int[] result = solve(test);
 
 		System.out.print("Choose these rows: ");
-		ArrayUtils.print_1d_array(result);
+		ArrayUtils.print(result);
 	}
 
 	public static int[] solve(int[][] matrix) {
-		int[][] data = add_row_numbers(matrix);
+		int[][] data = add_element_numbers(matrix);
 
-		XResult result = algorithm_x(data);
+		int[] result = algorithm_x(data);
 
-		// result.rows = ArrayUtils.add_element_to_1d_array(result.rows, 60);
-
-		return result.rows;
+		return result;
 	}
 
-	public static XResult algorithm_x(int[][] matrix) {
-		XResult result = new XResult();
-
-		System.out.println("Current matrix:");
-		ArrayUtils.print_2d_array(matrix);
+	public static int[] algorithm_x(int[][] matrix) {
+		int[] rows = new int[0];
 
 		int[] remainingRows = check_if_matrix_is_filled(matrix);
 
 		if (remainingRows.length > 0) {
-			for (int i = 0; i < remainingRows.length; i++) {
-				result.add_row(remainingRows[i]);
-			}
-
-			return new XResult(true, result.rows);
+			rows = ArrayUtils.add(rows, remainingRows);
+			return rows;
 		}
 
-		if (matrix.length == 0) {
-			System.out.println("DISCARDING BRANCH\n");
-			return new XResult(false);
-		}
+		if (matrix.length == 0)
+			return new int[0];
 
 		int c = column_with_least_ones(matrix);
 
 		if (c == -1)
-			return new XResult(false);
-
-		System.out.println("Looking at c = " + c);
+			return new int[0];
 
 		for (int r = 0; r < matrix.length; r++) {
 			if (matrix[r][c] == 1) {
 				int[][] tmpMatrix = matrix.clone();
 
-				System.out.println("Looking at r = " + r + " (" + tmpMatrix[r][0] + ")");
-
-				result.add_row(tmpMatrix[r][0]);
+				rows = ArrayUtils.add_element(rows, tmpMatrix[r][0]);
 
 				int[] rowsToRemove = new int[0];
 				int[] colsToRemove = new int[0];
 
 				for (int j = 1; j < tmpMatrix[0].length; j++) {
 					if (tmpMatrix[r][j] == 1) {
-						// System.out.println("Going to remove column " + j);
-						colsToRemove = ArrayUtils.add_distinct_element_to_1d_array(colsToRemove, j);
+						colsToRemove = ArrayUtils.add_distinct_element(colsToRemove, j);
 
 						for (int i = 0; i < tmpMatrix.length; i++) {
 							if (tmpMatrix[i][j] == 1) {
-								// System.out.println(" Going to remove row " + i);
-								rowsToRemove = ArrayUtils.add_distinct_element_to_1d_array(rowsToRemove, i);
+								rowsToRemove = ArrayUtils.add_distinct_element(rowsToRemove, i);
 							}
 						}
 					}
@@ -91,11 +63,6 @@ public class AlgorithmX {
 
 				Arrays.sort(rowsToRemove);
 				Arrays.sort(colsToRemove);
-
-				System.out.println("Removing cols:");
-				ArrayUtils.print_1d_array(colsToRemove);
-				System.out.println("Removing rows:");
-				ArrayUtils.print_1d_array(rowsToRemove);
 
 				for (int j = 0; j < rowsToRemove.length; j++) {
 					tmpMatrix = ArrayUtils.remove_row(tmpMatrix, rowsToRemove[j] - j);
@@ -107,24 +74,25 @@ public class AlgorithmX {
 					}
 				}
 
-				XResult newResult = algorithm_x(tmpMatrix);
+				int[] newRows = algorithm_x(tmpMatrix);
 
-				if (newResult.result == true) {
-					result.result = true;
-					result.add_row(newResult.rows);
-					return result;
+				if (newRows.length != 0) {
+					rows = ArrayUtils.add(rows, newRows);
+					return rows;
 				}
+
+				rows = ArrayUtils.remove_last_element(rows);
 			}
 		}
 
-		return new XResult(false);
+		return new int[0];
 	}
 
-	private static int[][] add_row_numbers(int[][] matrix) {
+	private static int[][] add_element_numbers(int[][] matrix) {
 		int[][] newMatrix = new int[matrix.length][0];
 
 		for (int i = 0; i < matrix.length; i++) {
-			newMatrix[i] = ArrayUtils.add_element_to_start_of_1d_array(matrix[i], i);
+			newMatrix[i] = ArrayUtils.add_element_to_start(matrix[i], i);
 		}
 
 		return newMatrix;

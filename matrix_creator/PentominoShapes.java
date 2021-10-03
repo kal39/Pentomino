@@ -1,6 +1,6 @@
 package matrix_creator;
 
-import utils.ArrayUtils;
+import utils.*;
 
 /*
  * The PentominoShapes class deals with generating all possible orientations for any given pentomino.
@@ -29,7 +29,7 @@ public class PentominoShapes {
 		int[][][] configs = new int[0][0][0];
 
 		for (int i = 0; i < pieces.length; i++) {
-			configs = ArrayUtils.add_3d_arrays(configs, get_pentomino_variations(pieces[i]));
+			configs = ArrayUtils.add(configs, get_pentomino_variations(pieces[i]));
 		}
 
 		return configs;
@@ -49,10 +49,10 @@ public class PentominoShapes {
 			configs = add_pentomino(configs, pentomino);
 
 			// check for duplicates and add flipped pentomino
-			configs = add_pentomino(configs, ArrayUtils.flip_2d_array(pentomino));
+			configs = add_pentomino(configs, ArrayUtils.flip(pentomino));
 
 			// rotate pentomino
-			pentomino = ArrayUtils.rotate_2d_array(pentomino);
+			pentomino = ArrayUtils.rotate(pentomino);
 		}
 
 		return configs;
@@ -102,10 +102,10 @@ public class PentominoShapes {
 
 	private static int[][][] add_pentomino(int[][][] array, int[][] pentomino) {
 		// checks for duplication before adding pentomino
-		if (ArrayUtils.contains_identical_2d_array(array, pentomino)) {
+		if (ArrayUtils.contains_identical_array(array, pentomino)) {
 			return array;
 		} else {
-			return ArrayUtils.add_layer_to_3d_array(array, pentomino);
+			return ArrayUtils.add_element(array, pentomino);
 		}
 	}
 

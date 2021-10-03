@@ -1,6 +1,6 @@
 package matrix_creator;
 
-import utils.ArrayUtils;
+import utils.*;
 
 /*
  * The MatrixCreator class deals with generating a 2d array that can be processed by the main solving algorithm
@@ -19,23 +19,9 @@ public class MatrixCreator {
 	public static void main(String[] args) {
 		printBoards = true;
 
-		// boardWidth = 5;
-		// boardHeight = 5;
-
-		// int[][] board = place_pentomino(1, 0, PentominoShapes.get_pentomino('X'));
-		// print_board(board);
-
-		// int[][][] boards = get_placements_2d(PentominoShapes.get_pentomino('X'));
-
-		// for (int i = 0; i < boards.length; i++) {
-		// print_board(boards[i]);
-		// }
-
-		// char[] letters = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F'
-		// };
 		char[] letters = { 'U', 'P', 'V' };
 		int data[][] = create(5, 3, letters);
-		ArrayUtils.print_2d_array(data);
+		ArrayUtils.print(data);
 
 		for (int i = 0; i < data.length; i++) {
 			print_board(get_pentomino_location_in_board(data[i], letters.length, boardWidth, boardHeight));
@@ -69,9 +55,9 @@ public class MatrixCreator {
 					row[i] = 1;
 
 					// adding the placement data to the row
-					row = ArrayUtils.add_1d_arrays(row, placements[k]);
+					row = ArrayUtils.add(row, placements[k]);
 
-					data = ArrayUtils.add_row_to_2d_array(data, row);
+					data = ArrayUtils.add_element(data, row);
 				}
 			}
 		}
@@ -106,7 +92,7 @@ public class MatrixCreator {
 		for (int i = 0; i < placements3d.length; i++) {
 			// convert the 2d array received from the get_placements_2d() method to a 1d
 			// array
-			placements = ArrayUtils.add_row_to_2d_array(placements, ArrayUtils.convert_2d_to_1d(placements3d[i]));
+			placements = ArrayUtils.add_element(placements, ArrayUtils.convert(placements3d[i]));
 		}
 
 		return placements;
@@ -121,7 +107,7 @@ public class MatrixCreator {
 
 		for (int i = 0; i < boardHeight - pentomino.length + 1; i++) {
 			for (int j = 0; j < boardWidth - pentomino[0].length + 1; j++) {
-				placements = ArrayUtils.add_layer_to_3d_array(placements, place_pentomino(j, i, pentomino));
+				placements = ArrayUtils.add_element(placements, place_pentomino(j, i, pentomino));
 			}
 		}
 
