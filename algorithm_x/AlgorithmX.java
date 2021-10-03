@@ -16,10 +16,7 @@ public class AlgorithmX {
 
 	public static int[] solve(int[][] matrix) {
 		int[][] data = add_element_numbers(matrix);
-
-		int[] result = algorithm_x(data);
-
-		return result;
+		return algorithm_x(data);
 	}
 
 	public static int[] algorithm_x(int[][] matrix) {
