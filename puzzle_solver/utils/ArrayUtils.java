@@ -1,4 +1,4 @@
-package utils;
+package puzzle_solver.utils;
 
 import java.util.Arrays;
 

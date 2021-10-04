@@ -1,0 +1,138 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage[margin = 1.5in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[fleqn]{amsmath} % fleqn: align multiline equations left
+\usepackage{amsfonts}
+\usepackage{enumerate}
+
+% code block
+\usepackage{listings, lstautogobble}
+\usepackage{xcolor}
+\usepackage{mdframed} 
+\lstset{basicstyle=\small\ttfamily, columns=flexible, breaklines=true, autogobble=true}
+\definecolor{light-gray}{gray}{0.95}
+
+\newcommand{\opencodeblock}{\begin{mdframed}[backgroundcolor=light-gray, roundcorner=10pt,leftmargin=1, rightmargin=1, innerleftmargin=15, innertopmargin=15,innerbottommargin=15, outerlinewidth=1, linecolor=light-gray] \begin{lstlisting}}
+\newcommand{\closecodeblock}{\end{lstlisting} \end{mdframed}}
+
+\newcommand{\beginproof}{\vspace{2mm} \textbf{Proof:} \vspace{2mm}}
+\newcommand{\qed}{\vspace{2mm} \begin{flushright} \textbf{QED} \end{flushright} \vspace{2mm}}
+\newcommand{\awnswer}[1]{\underline{\underline{\textbf{#1}}}}
+
+\title{Algorithm explanation}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+	\item Algorithm X
+
+	      Algorithm X finds rows from a matrix such that those rows contain a 1 in each column
+
+	      For example, if algorithm X runs on the following matrix:
+
+	      \begin{lstlisting}
+			rows  matrix
+			A    | 1 0 0 1 0 0 1
+			B    | 1 0 0 1 0 0 0
+			C    | 0 0 0 1 1 0 1
+			D    | 0 0 1 0 1 1 0
+			E    | 0 1 1 0 0 1 1
+			F    | 0 1 0 0 0 0 1
+		  \end{lstlisting}
+
+	      Algorithm X should return rows B, D, and F, because:
+
+	      \begin{lstlisting}
+			rows  matrix
+			B    | 1 0 0 1 0 0 0
+			D    | 0 0 1 0 1 1 0
+			F    | 0 1 0 0 0 0 1
+			sum  | 1 1 1 1 1 1 1
+		  \end{lstlisting}
+
+	      This is the pseudocode for algorithm X:
+
+	      \begin{mdframed}[backgroundcolor=light-gray, roundcorner=10pt,leftmargin=1, rightmargin=1, innerleftmargin=15, innertopmargin=15,innerbottommargin=15, outerlinewidth=1, linecolor=light-gray]
+		      \begin{lstlisting}
+				If matrix A only contains 1s, the current solution is a valid solution
+				Thus, return the list solutions
+				
+				If matrix A is empty this is not a valid solution, so terminate the branch
+
+				Choose column c such that it contains the least number of 1s
+
+				For each row r such that A[r][c] = 1 (row r contains a 1 in column r)
+					Include row r in the solution.
+
+					For each column j such that A[r][j] = 1
+						Add column j to the list of columns that have to be removed
+						For each row i such that A[i][j] = 1
+							Add row i to the list of rows that have to be removed
+					
+					Remove the rows and columns that have to be removed 
+					
+					Repeat the algorithm recursively on matrix A
+
+					If the branch finds an valid solution add the solution to the list of solutions
+					Else, remove row r from the solution because it is not a valid solution
+				
+				This is not a valid solution, so terminate the branch
+
+			\end{lstlisting}
+	      \end{mdframed}
+
+	\item Matrix Creator
+
+	      In order to solve the pentomino puzzle using algorithm x, we have to create a matrix that contains all the possible placements of the pentominos.
+
+	      The matrix has to look look this:
+
+	      \begin{tabular}{ c | c  c  c  c   c | c  c  c c c c c c}
+		      column & 0 & 1 & ... & 9 & 11 & 12 & 13 & 14 & ... \\
+		      \hline
+		      data   & 1 & 0 &     & 0 & 0  & 1  & 1  & 0        \\
+		             & 1 & 0 &     & 0 & 0  & 0  & 1  & 1        \\
+		             & 0 & 1 &     & 0 & 0  & 1  & 1  & 0        \\
+		             & 0 & 1 &     & 0 & 0  & 0  & 0  & 0        \\
+		             & 0 & 0 &     & 1 & 0  & 1  & 0  & 0        \\
+		             & 0 & 0 &     & 1 & 0  & 0  & 0  & 1        \\
+		             & 0 & 0 &     & 0 & 1  & 1  & 1  & 1        \\
+		             & 0 & 0 &     & 0 & 1  & 0  & 0  & 1        \\
+	      \end{tabular}
+
+	      Each row represents a distinct position and orientation of distinct pentominos
+
+	      \begin{itemize}
+		      \item The first 12 (depending on how many pentominos we use) columns should each represent a pentomino shape (eg, X, W, L, ...).
+		      \item The remaining columns represent the board in a 1 dimensional way
+
+		            If the board had a state like this:
+
+		            \begin{lstlisting}
+						0 1 0
+						1 1 1
+						1 0 1
+					\end{lstlisting}
+
+		            the remaining columns should look like this:
+
+		            \begin{lstlisting}
+						0 1 0 1 1 1 1 0 1
+					\end{lstlisting}
+	      \end{itemize}
+
+	      Each row should contain a single 1 in the firs 12 columns representing which pentomino it is, and 5 (each pentomino fills 5 cells) 1s in the remaining columns.
+
+	\item Actual implementation
+
+	      \begin{enumerate}
+		      \item Create matrix A using the Matrix Creator
+		      \item Add row numbers to the 0th column of matrix A, ri order to keep track of the rows that we remove
+		      \item Use Algorithm X to solve matrix A
+		      \item The rows Algorithm X returns contain the position and orientation of the pentominos we have to use
+	      \end{enumerate}
+\end{enumerate}
+
+\end{document}

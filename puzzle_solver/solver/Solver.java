@@ -1,8 +1,8 @@
-package pentomino_solver;
+package puzzle_solver.solver;
 
-import algorithm_x.*;
-import matrix_creator.*;
-import utils.*;
+import puzzle_solver.algorithm_x.*;
+import puzzle_solver.matrix_creator.*;
+// import puzzle_solver.utils.*;
 
 public class Solver {
 	// change these parameters for testing:
@@ -15,6 +15,10 @@ public class Solver {
 		// measurePerformance();
 	}
 
+	/*
+	 * This method actually solves the puzzle
+	 */
+
 	public static void create_and_solve(int width, int height, char[] pieces) {
 		int[][] matrix = MatrixCreator.create(width, height, pieces);
 
@@ -26,6 +30,11 @@ public class Solver {
 			MatrixCreator.print_board(piece);
 		}
 	}
+
+	/*
+	 * This method just measures how long each part of the solver takes (it takes an
+	 * average of 100 times)
+	 */
 
 	public static void measurePerformance() {
 		// measure matrix creation time

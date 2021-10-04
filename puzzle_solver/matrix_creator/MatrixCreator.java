@@ -1,6 +1,6 @@
-package matrix_creator;
+package puzzle_solver.matrix_creator;
 
-import utils.*;
+import puzzle_solver.utils.*;
 
 /*
  * The MatrixCreator class deals with generating a 2d array that can be processed by the main solving algorithm

@@ -1,6 +1,6 @@
-package algorithm_x;
+package puzzle_solver.algorithm_x;
 
-import utils.*;
+import puzzle_solver.utils.*;
 
 /*
  * The AlgorithmX class deals with solving the 2d array created by MatrixCreator
