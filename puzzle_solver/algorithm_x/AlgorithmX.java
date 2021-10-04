@@ -19,7 +19,7 @@ public class AlgorithmX {
 
 		int[] result = solve(test);
 
-		System.out.print("Choose these rows: ");
+		System.out.print("Choose these partialSolution: ");
 		ArrayUtils.print(result);
 	}
 
@@ -35,15 +35,15 @@ public class AlgorithmX {
 	}
 
 	public static int[] algorithm_x(int[][] matrix) {
-		int[] rows = new int[0];
+		int[] partialSolution = new int[0];
 
 		// check if the matrix is solved)
 		int[] remainingRows = check_if_solved(matrix);
 
 		if (remainingRows.length > 0) {
-			// add the remaining rows to the answer
-			rows = ArrayUtils.add(rows, remainingRows);
-			return rows; // success!
+			// add the remaining rows to the partialSolution
+			partialSolution = ArrayUtils.add(partialSolution, remainingRows);
+			return partialSolution; // success!
 		}
 
 		if (matrix.length == 0)
@@ -61,7 +61,7 @@ public class AlgorithmX {
 				int[][] tmpMatrix = matrix.clone();
 
 				// add row to answer
-				rows = ArrayUtils.add_element(rows, tmpMatrix[r][0]);
+				partialSolution = ArrayUtils.add_element(partialSolution, tmpMatrix[r][0]);
 
 				int[] rowsToRemove = new int[0];
 				int[] colsToRemove = new int[0];
@@ -89,16 +89,16 @@ public class AlgorithmX {
 					tmpMatrix = ArrayUtils.remove_col(tmpMatrix, colsToRemove);
 
 				// recursive call, it will return an array containing all answers if it succeeds
-				int[] newRows = algorithm_x(tmpMatrix);
+				int[] newPartialSolution = algorithm_x(tmpMatrix);
 
-				// newRows will have a non-zero length if it succeeds
-				if (newRows.length != 0) {
-					rows = ArrayUtils.add(rows, newRows);
-					return rows;
+				// newPartialSolution will have a non-zero length if it succeeds
+				if (newPartialSolution.length != 0) {
+					partialSolution = ArrayUtils.add(partialSolution, newPartialSolution);
+					return partialSolution;
 				}
 
 				// remove row r we added earlier
-				rows = ArrayUtils.remove_last_element(rows);
+				partialSolution = ArrayUtils.remove_last_element(partialSolution);
 			}
 		}
 
@@ -120,8 +120,9 @@ public class AlgorithmX {
 	}
 
 	/*
-	 * Checks if a matrix is filled with ones. If it is, it returns all the rows of
-	 * the matrix that remain. If not, it returns a array of length 0
+	 * Checks if a matrix is filled with ones. If it is, it returns all the
+	 * partialSolution of the matrix that remain. If not, it returns a array of
+	 * length 0
 	 */
 
 	private static int[] check_if_solved(int[][] matrix) {
