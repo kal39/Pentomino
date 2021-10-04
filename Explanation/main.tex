@@ -75,7 +75,7 @@
 					
 					Repeat the algorithm recursively on matrix A
 
-					If the branch finds an valid solution add the solution to the list of solutions
+					If the recursive call finds an valid solution add the solution to the list of solutions
 					Else, remove row r from the solution because it is not a valid solution
 				
 				This is not a valid solution, so terminate the branch
@@ -129,7 +129,7 @@
 
 	      \begin{enumerate}
 		      \item Create matrix A using the Matrix Creator
-		      \item Add row numbers to the 0th column of matrix A, ri order to keep track of the rows that we remove
+		      \item Add row numbers to the 0th column of matrix A, in order to keep track of the rows that we remove
 		      \item Use Algorithm X to solve matrix A
 		      \item The rows Algorithm X returns contain the position and orientation of the pentominos we have to use
 	      \end{enumerate}
