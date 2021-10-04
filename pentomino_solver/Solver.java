@@ -11,8 +11,8 @@ public class Solver {
 	static final char[] PIECES = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F' };
 
 	public static void main(String[] args) {
-		// create_and_solve(WIDTH, HEIGHT, PIECES);
-		measurePerformance();
+		create_and_solve(WIDTH, HEIGHT, PIECES);
+		// measurePerformance();
 	}
 
 	public static void create_and_solve(int width, int height, char[] pieces) {

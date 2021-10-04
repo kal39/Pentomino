@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Arrays;
+
 public class ArrayUtils {
 	public static int[][] flip(int[][] in) {
 		int out[][] = new int[in.length][in[0].length];
@@ -195,6 +197,17 @@ public class ArrayUtils {
 		return out;
 	}
 
+	public static int[][] remove_row(int in[][], int rows[]) {
+		int[][] out = in.clone();
+
+		Arrays.sort(rows);
+		for (int i = 0; i < rows.length; i++) {
+			out = ArrayUtils.remove_row(out, rows[i] - i);
+		}
+
+		return out;
+	}
+
 	public static int[][] remove_col(int in[][], int column) {
 		if (column > in[0].length - 1)
 			return in; // column out of bounds
@@ -210,6 +223,17 @@ public class ArrayUtils {
 			for (int j = column; j < out[0].length; j++) {
 				out[i][j] = in[i][j + 1];
 			}
+		}
+
+		return out;
+	}
+
+	public static int[][] remove_col(int in[][], int columns[]) {
+		int[][] out = in.clone();
+
+		Arrays.sort(columns);
+		for (int i = 0; i < columns.length; i++) {
+			out = ArrayUtils.remove_col(out, columns[i] - i);
 		}
 
 		return out;
