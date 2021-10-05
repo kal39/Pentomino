@@ -1,4 +1,4 @@
-package puzzle_solver.matrix_creator;
+package puzzle_solver.algorithm_x.matrix_creator;
 
 import puzzle_solver.utils.*;
 
@@ -108,13 +108,6 @@ public class MatrixCreator {
 		for (int i = 0; i < boardHeight - pentomino.length + 1; i++) {
 			for (int j = 0; j < boardWidth - pentomino[0].length + 1; j++) {
 				placements = ArrayUtils.add_element(placements, place_pentomino(j, i, pentomino));
-			}
-		}
-
-		if (printBoards) {
-			for (int i = 0; i < placements.length; i++) {
-				print_board(placements[i]);
-				System.out.println();
 			}
 		}
 

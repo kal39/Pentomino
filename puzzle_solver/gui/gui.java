@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 // import java.util.Random;
 
-import puzzle_solver.solver.*;
+import puzzle_solver.algorithm_x.solver.*;
 
 public class gui {
 	static final int width = 800;
@@ -16,12 +16,16 @@ public class gui {
 	static final int lettersFieldOffsetY = 20 + width / 16;
 
 	public static void main(String[] args) {
+		run_gui();
+	}
+
+	public static void run_gui() {
 		JFrame f = new JFrame("Button Example");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setResizable(false);
 
 		JLabel widthLabel = new JLabel("Width:");
-		widthLabel.setBounds(0, height - 60, 60, 20);
+		widthLabel.setBounds(10, height - 60, 60, 20);
 		JTextField widthField = new JTextField("12");
 		widthField.setBounds(70, height - 60, 60, 20);
 
@@ -39,15 +43,12 @@ public class gui {
 		runButton.setBounds(710, height - 60, 80, 20);
 
 		Drawing canvas = new Drawing();
-		canvas.setSize(width, height - 60);
-		canvas.height = height - 60;
+		canvas.setSize(width, height - 65);
+		canvas.height = height - 65;
 		canvas.width = width;
 
 		runButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// runButton.setText("WAIT");
-				// f.revalidate();
-
 				String letterString = lettersField.getText();
 				String widthString = widthField.getText();
 				String heightString = heightField.getText();
@@ -55,8 +56,6 @@ public class gui {
 				f.remove(canvas);
 				canvas.pieces = parse_and_run_input(letterString, widthString, heightString);
 				f.add(canvas);
-
-				// runButton.setText("RUN");
 			}
 		});
 
@@ -145,7 +144,7 @@ class Drawing extends Canvas {
 						if (pieces[tmpI][j][k] == 1) {
 							g.setColor(color);
 							g.fillRect(xOffset + colSize * k, yOffset + rowSize * j, rowSize, colSize);
-							g.setColor(Color.lightGray);
+							g.setColor(Color.black);
 							g.drawRect(xOffset + colSize * k, yOffset + rowSize * j, rowSize, colSize);
 
 						}

@@ -1,24 +1,21 @@
-package puzzle_solver.solver;
+package puzzle_solver.algorithm_x.solver;
 
-import puzzle_solver.algorithm_x.*;
-import puzzle_solver.matrix_creator.*;
+import puzzle_solver.algorithm_x.algorithm_x.*;
+import puzzle_solver.algorithm_x.matrix_creator.*;
 // import puzzle_solver.utils.*;
 import puzzle_solver.utils.ArrayUtils;
 
 public class Solver {
 	// change these parameters for testing:
-	// static final int WIDTH = 10;
-	// static final int HEIGHT = 6;
-	// static final char[] PIECES = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L',
-	// 'P', 'N', 'F' };
-
-	static final int WIDTH = 5;
-	static final int HEIGHT = 3;
-	static final char[] PIECES = { 'X', 'U', 'U' };
+	static final int WIDTH = 10;
+	static final int HEIGHT = 6;
+	static final char[] PIECES = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F' };
+	static boolean print = false;
 
 	public static void main(String[] args) {
+		print = true;
 		create_and_solve(WIDTH, HEIGHT, PIECES);
-		// measurePerformance();
+		measurePerformance();
 	}
 
 	/*
@@ -39,7 +36,9 @@ public class Solver {
 			int[][] piece = MatrixCreator.get_pentomino_location_in_board(matrix[solutions[i]], pieces.length, width,
 					height);
 			solutions2D = ArrayUtils.add_element(solutions2D, piece);
-			MatrixCreator.print_board(piece);
+
+			if (print)
+				MatrixCreator.print_board(piece);
 		}
 
 		return solutions2D;
@@ -68,10 +67,12 @@ public class Solver {
 		long t4 = System.nanoTime();
 
 		double ct = (double) ((t2 - t1) / (long) 100) / 1000000000;
-		double st = (double) ((t4 - t3) / (long) 100) / 1000000000;
+		double xt = (double) ((t4 - t3) / (long) 100) / 1000000000;
 
 		System.out.println("Matrix creation time (average): " + ct + "s");
-		System.out.println("Solving time (average): " + st + "s");
+		System.out.println("Algorithm X time (average): " + xt + "s");
+		System.out.println("\nTotal solving time (average): " + (ct + xt) + "s");
+
 	}
 
 }

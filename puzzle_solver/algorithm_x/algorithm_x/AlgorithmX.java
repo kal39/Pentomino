@@ -1,4 +1,4 @@
-package puzzle_solver.algorithm_x;
+package puzzle_solver.algorithm_x.algorithm_x;
 
 import puzzle_solver.utils.*;
 
@@ -37,17 +37,17 @@ public class AlgorithmX {
 	public static int[] algorithm_x(int[][] matrix) {
 		int[] partialSolution = new int[0];
 
-		// check if the matrix is solved)
-		int[] remainingRows = check_if_solved(matrix);
-
-		if (remainingRows.length > 0) {
-			// add the remaining rows to the partialSolution
-			partialSolution = ArrayUtils.add(partialSolution, remainingRows);
-			return partialSolution; // success!
-		}
-
 		if (matrix.length == 0)
 			return new int[0]; // failure, abandon branch
+
+		// check if the matrix is solved)
+		int remainingRow = check_if_solved(matrix);
+
+		if (remainingRow != -1) {
+			// add the remaining row to the partialSolution
+			partialSolution = ArrayUtils.add_element(partialSolution, remainingRow);
+			return partialSolution; // success!
+		}
 
 		int c = column_with_least_ones(matrix);
 
@@ -125,21 +125,15 @@ public class AlgorithmX {
 	 * length 0
 	 */
 
-	private static int[] check_if_solved(int[][] matrix) {
+	private static int check_if_solved(int[][] matrix) {
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[0].length; j++) {
 				if (matrix[i][j] == 0)
-					return new int[0];
+					return -1;
 			}
 		}
 
-		int[] remainingRows = new int[matrix.length];
-
-		for (int i = 0; i < matrix.length; i++) {
-			remainingRows[i] = matrix[i][0];
-		}
-
-		return remainingRows;
+		return matrix[0][0];
 	}
 
 	/*

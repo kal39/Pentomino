@@ -1,4 +1,4 @@
-package puzzle_solver.matrix_creator;
+package puzzle_solver.algorithm_x.matrix_creator;
 
 import puzzle_solver.utils.*;
 
@@ -14,25 +14,11 @@ public class PentominoShapes {
 	 */
 
 	public static void main(String[] args) {
-		char[] allLetters = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F' };
+		// char[] allLetters = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N',
+		// 'F' };
 
 		// print_pentomino(get_pentomino('L'));
 		// print_all_pentominos(get_pentomino_variations('L'));
-		print_all_pentominos(get_all_pentomino_variations(allLetters));
-	}
-
-	/*
-	 * Returns all possible orientations for all pentominos in an array
-	 */
-
-	public static int[][][] get_all_pentomino_variations(char[] pieces) {
-		int[][][] configs = new int[0][0][0];
-
-		for (int i = 0; i < pieces.length; i++) {
-			configs = ArrayUtils.add(configs, get_pentomino_variations(pieces[i]));
-		}
-
-		return configs;
 	}
 
 	/*
