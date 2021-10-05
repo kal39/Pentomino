@@ -73,6 +73,7 @@ public class gui {
 		f.setSize(800, 600);
 		f.setLayout(null);
 		f.setVisible(true);
+		f.getRootPane().setDefaultButton(runButton);
 	}
 
 	private static int[][][] parse_and_run_input(String lettersString, String widthString, String heightString) {
@@ -132,12 +133,16 @@ class Drawing extends Canvas {
 			for (int i = 0; i < pieces.length; i++) {
 				float colorMask = 1.0f / (float) pieces.length * i;
 
-				// Color color = Color.getHSBColor(r.nextFloat(), 1.0f, 0.5f);
 				Color color = Color.getHSBColor(colorMask, 0.5f + colorMask * 0.5f, 0.5f + colorMask * 0.5f);
+
+				// so we don't get similar color close to each other
+				int tmpI = i;
+				if (i % 2 == 1)
+					tmpI = pieces.length - i - ((pieces.length % 2 == 1) ? 1 : 0);
 
 				for (int j = 0; j < pieces[0].length; j++) {
 					for (int k = 0; k < pieces[0][0].length; k++) {
-						if (pieces[i][j][k] == 1) {
+						if (pieces[tmpI][j][k] == 1) {
 							g.setColor(color);
 							g.fillRect(xOffset + colSize * k, yOffset + rowSize * j, rowSize, colSize);
 							g.setColor(Color.lightGray);
