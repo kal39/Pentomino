@@ -34,7 +34,7 @@ public class AlgorithmX {
 		return algorithm_x(data);
 	}
 
-	public static int[] algorithm_x(int[][] matrix) {
+	private static int[] algorithm_x(int[][] matrix) {
 		int[] partialSolution = new int[0];
 
 		if (matrix.length == 0)
