@@ -28,17 +28,20 @@ public class gui {
 
 		JLabel widthLabel = new JLabel("Width:");
 		widthLabel.setBounds(10, height - 60, 60, 20);
-		JTextField widthField = new JTextField("12");
+		FocusTextField widthField = new FocusTextField();
+		widthField.setText("12");
 		widthField.setBounds(60, height - 60, 40, 20);
 
 		JLabel heightLabel = new JLabel("Height:");
 		heightLabel.setBounds(110, height - 60, 60, 20);
-		JTextField heightField = new JTextField("5");
+		FocusTextField heightField = new FocusTextField();
+		heightField.setText("5");
 		heightField.setBounds(110 + 60, height - 60, 40, 20);
 
 		JLabel lettersFieldLabel = new JLabel("Pentominos:");
 		lettersFieldLabel.setBounds(220, height - 60, 100, 20);
-		JTextField lettersField = new JTextField("X I Z T U V W Y L P N F");
+		FocusTextField lettersField = new FocusTextField();
+		lettersField.setText("X I Z T U V W Y L P N F");
 		lettersField.setBounds(320, height - 60, 200, 20);
 
 		String[] algorithms = { "Basic", "Branching", "Algorithm X" };
@@ -267,5 +270,22 @@ class Drawing extends Canvas {
 				}
 			}
 		}
+	}
+}
+
+class FocusTextField extends JTextField {
+	{
+		addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				FocusTextField.this.select(0, getText().length());
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				FocusTextField.this.select(0, 0);
+			}
+		});
 	}
 }
