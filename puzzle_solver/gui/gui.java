@@ -7,7 +7,7 @@ import java.awt.*;
 
 import puzzle_solver.algorithm_x.solver.*;
 import puzzle_solver.basic.*;
-import puzzle_solver.utils.*;
+import puzzle_solver.branching.*;
 
 public class gui {
 	static final int width = 800;
@@ -69,12 +69,15 @@ public class gui {
 
 				switch (algorithmSelector.getSelectedIndex()) {
 					case 0:
+						System.out.println("Running basic algorithm");
 						canvas.pieces[0] = parse_and_run_basic(letterString, widthString, heightString);
 						break;
 					case 1:
-						canvas.pieces = new int[0][0][0];
+						System.out.println("Running branching algorithm");
+						canvas.pieces[0] = parse_and_run_branching(letterString, widthString, heightString);
 						break;
 					case 2:
+						System.out.println("Running algorithm X");
 						canvas.pieces = parse_and_run_algo_x(letterString, widthString, heightString);
 						break;
 				}
@@ -124,6 +127,24 @@ public class gui {
 		return Search.search(widthInt, heightInt, letters);
 	}
 
+	private static int[][] parse_and_run_branching(String lettersString, String widthString, String heightString) {
+		char[] letters = new char[0];
+
+		for (int i = 0; i < lettersString.length(); i++) {
+			char l = java.lang.Character.toUpperCase(lettersString.charAt(i));
+			if (l == 'X' || l == 'I' || l == 'Z' || l == 'T' || l == 'U' || l == 'V' || l == 'W' || l == 'Y' || l == 'L'
+					|| l == 'P' || l == 'N' || l == 'F')
+				letters = add_char(letters, l);
+		}
+
+		int widthInt = Integer.parseInt(widthString);
+		int heightInt = Integer.parseInt(heightString);
+
+		int[][] board = new int[heightInt][widthInt];
+
+		return branching_algorithm_pruning.solve(board, letters);
+	}
+
 	private static int[][][] parse_and_run_algo_x(String lettersString, String widthString, String heightString) {
 		char[] letters = new char[0];
 
@@ -170,6 +191,7 @@ class Drawing extends Canvas {
 					paint_basic(g);
 					break;
 				case 1:
+					paint_basic(g);
 					break;
 				case 2:
 					paint_algo_x(g);

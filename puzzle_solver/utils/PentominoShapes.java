@@ -1,6 +1,4 @@
-package puzzle_solver.algorithm_x.matrix_creator;
-
-import puzzle_solver.utils.*;
+package puzzle_solver.utils;
 
 /*
  * The PentominoShapes class deals with generating all possible orientations for any given pentomino.

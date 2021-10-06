@@ -19,7 +19,7 @@ public class AlgorithmX {
 
 		int[] result = solve(test);
 
-		System.out.print("Choose these partialSolution: ");
+		System.out.print("Choose these rows: ");
 		ArrayUtils.print(result);
 	}
 
