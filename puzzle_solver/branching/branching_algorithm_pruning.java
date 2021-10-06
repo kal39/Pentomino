@@ -3,29 +3,34 @@ package puzzle_solver.branching;
 import puzzle_solver.utils.*;
 
 public class branching_algorithm_pruning {
-	static int WIDTH = 12;
-	static int HEIGHT = 5;
-	static char[] LETTERS = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F' };
 	static int NODES = 0;
 
+	// static int WIDTH = 3;
+	// static int HEIGHT = 5;
+	// static char[] LETTERS = { 'U', 'U', 'X' };
+
 	public static void main(String[] args) {
-		int[][] board = new int[HEIGHT][WIDTH];
+		// int[][] board = new int[HEIGHT][WIDTH];
 
-		long t1 = System.nanoTime();
+		// long t1 = System.nanoTime();
 
-		board = solve(board, LETTERS);
+		// board = solve(board, LETTERS);
 
-		long t2 = System.nanoTime();
+		// long t2 = System.nanoTime();
 
-		double t = (double) (t2 - t1) / 1000000000;
+		// double t = (double) (t2 - t1) / 1000000000;
 
-		ArrayUtils.print(board);
+		// ArrayUtils.print(board);
 
-		System.out.println("NODES: " + NODES + ", time: " + t + " s");
+		// System.out.println("NODES: " + NODES + ", time: " + t + " s");
 	}
 
-	public static int[][] solve(int[][] board, char[] shapes) {
+	public static int[][] solve(char[] shapes, int width, int height) {
+		int[][] board = new int[height][width];
 		int[][] answer = recursive_branching(board, shapes, 0);
+
+		System.out.println("Answer: ");
+		ArrayUtils.print(answer);
 
 		if (answer.length == 0)
 			return answer;
@@ -52,7 +57,7 @@ public class branching_algorithm_pruning {
 
 		for (int i = 0; i < orientations.length; i++) {
 
-			int[][][] placements = get_placements(orientations[i]);
+			int[][][] placements = get_placements(orientations[i], board[0].length, board.length);
 
 			for (int j = 0; j < placements.length; j++) {
 				if (isPentominoPlacable(board, placements[j])) {
@@ -77,20 +82,21 @@ public class branching_algorithm_pruning {
 		return true;
 	}
 
-	private static int[][][] get_placements(int[][] pentomino) {
+	private static int[][][] get_placements(int[][] pentomino, int width, int height) {
 		int[][][] placements = new int[0][0][0];
 
-		for (int i = 0; i <= WIDTH - pentomino[0].length; i++) {
-			for (int j = 0; j <= HEIGHT - pentomino.length; j++) {
-				placements = ArrayUtils.add_element(placements, place_pentomino_on_empty_board(pentomino, i, j));
+		for (int i = 0; i <= width - pentomino[0].length; i++) {
+			for (int j = 0; j <= height - pentomino.length; j++) {
+				placements = ArrayUtils.add_element(placements,
+						place_pentomino_on_empty_board(pentomino, i, j, width, height));
 			}
 		}
 
 		return placements;
 	}
 
-	private static int[][] place_pentomino_on_empty_board(int[][] pentomino, int x, int y) {
-		int[][] board = new int[HEIGHT][WIDTH];
+	private static int[][] place_pentomino_on_empty_board(int[][] pentomino, int x, int y, int width, int height) {
+		int[][] board = new int[height][width];
 
 		for (int i = 0; i < pentomino.length; i++) {
 			for (int j = 0; j < pentomino[0].length; j++) {

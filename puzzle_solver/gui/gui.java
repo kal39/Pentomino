@@ -140,9 +140,7 @@ public class gui {
 		int widthInt = Integer.parseInt(widthString);
 		int heightInt = Integer.parseInt(heightString);
 
-		int[][] board = new int[heightInt][widthInt];
-
-		return branching_algorithm_pruning.solve(board, letters);
+		return branching_algorithm_pruning.solve(letters, widthInt, heightInt);
 	}
 
 	private static int[][][] parse_and_run_algo_x(String lettersString, String widthString, String heightString) {
