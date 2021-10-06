@@ -67,6 +67,8 @@ public class gui {
 
 				long t1 = System.nanoTime();
 
+				canvas.pieces = new int[1][0][0];
+
 				switch (algorithmSelector.getSelectedIndex()) {
 					case 0:
 						System.out.println("Running basic algorithm");

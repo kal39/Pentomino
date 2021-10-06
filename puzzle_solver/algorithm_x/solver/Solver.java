@@ -13,8 +13,7 @@ public class Solver {
 	static boolean print = false;
 
 	public static void main(String[] args) {
-		print = true;
-		create_and_solve(WIDTH, HEIGHT, PIECES);
+		// create_and_solve(WIDTH, HEIGHT, PIECES);
 		measurePerformance();
 	}
 
@@ -50,9 +49,13 @@ public class Solver {
 	 */
 
 	public static void measurePerformance() {
+		int runCount = 100;
+
+		System.out.println("Measuring execution time");
+
 		// measure matrix creation time
 		long t1 = System.nanoTime();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < runCount; i++) {
 			MatrixCreator.create(WIDTH, HEIGHT, PIECES);
 		}
 		long t2 = System.nanoTime();
@@ -61,17 +64,28 @@ public class Solver {
 		long t3 = System.nanoTime();
 		int[][] matrix = MatrixCreator.create(WIDTH, HEIGHT, PIECES);
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < runCount; i++) {
 			AlgorithmX.solve(matrix);
 		}
 		long t4 = System.nanoTime();
 
-		double ct = (double) ((t2 - t1) / (long) 100) / 1000000000;
-		double xt = (double) ((t4 - t3) / (long) 100) / 1000000000;
+		double ct = (double) ((t2 - t1) / (long) runCount) / 1000000000;
+		double xt = (double) ((t4 - t3) / (long) runCount) / 1000000000;
 
-		System.out.println("Matrix creation time (average): " + ct + "s");
+		System.out.println("\nMatrix creation time (average): " + ct + "s");
 		System.out.println("Algorithm X time (average): " + xt + "s");
-		System.out.println("\nTotal solving time (average): " + (ct + xt) + "s");
+
+		// measure total time
+
+		long t5 = System.nanoTime();
+		for (int i = 0; i < runCount; i++) {
+			AlgorithmX.solve(MatrixCreator.create(WIDTH, HEIGHT, PIECES));
+		}
+		long t6 = System.nanoTime();
+
+		double tt = (double) ((t6 - t5) / (long) runCount) / 1000000000;
+
+		System.out.println("\nTotal solving time (average): " + tt + "s");
 
 	}
 

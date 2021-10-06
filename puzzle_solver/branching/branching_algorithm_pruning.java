@@ -5,32 +5,29 @@ import puzzle_solver.utils.*;
 public class branching_algorithm_pruning {
 	static int NODES = 0;
 
-	// static int WIDTH = 3;
-	// static int HEIGHT = 5;
-	// static char[] LETTERS = { 'U', 'U', 'X' };
+	static int WIDTH = 12;
+	static int HEIGHT = 5;
+	static char[] LETTERS = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F' };
 
 	public static void main(String[] args) {
-		// int[][] board = new int[HEIGHT][WIDTH];
+		int[][] board = new int[HEIGHT][WIDTH];
 
-		// long t1 = System.nanoTime();
+		long t1 = System.nanoTime();
 
-		// board = solve(board, LETTERS);
+		board = solve(LETTERS, WIDTH, HEIGHT);
 
-		// long t2 = System.nanoTime();
+		long t2 = System.nanoTime();
 
-		// double t = (double) (t2 - t1) / 1000000000;
+		double t = (double) (t2 - t1) / 1000000000;
 
-		// ArrayUtils.print(board);
+		ArrayUtils.print(board);
 
-		// System.out.println("NODES: " + NODES + ", time: " + t + " s");
+		System.out.println("NODES: " + NODES + ", time: " + t + " s");
 	}
 
 	public static int[][] solve(char[] shapes, int width, int height) {
 		int[][] board = new int[height][width];
 		int[][] answer = recursive_branching(board, shapes, 0);
-
-		System.out.println("Answer: ");
-		ArrayUtils.print(answer);
 
 		if (answer.length == 0)
 			return answer;
@@ -60,7 +57,7 @@ public class branching_algorithm_pruning {
 			int[][][] placements = get_placements(orientations[i], board[0].length, board.length);
 
 			for (int j = 0; j < placements.length; j++) {
-				if (isPentominoPlacable(board, placements[j])) {
+				if (is_pentomino_placable(board, placements[j])) {
 					int[][] newBoard = recursive_branching(add_boards(board, placements[j], n + 1), shapes, n + 1);
 					if (newBoard.length != 0)
 						return newBoard;
@@ -119,7 +116,7 @@ public class branching_algorithm_pruning {
 		return newBoard;
 	}
 
-	static boolean isPentominoPlacable(int[][] board, int[][] pentomino) {
+	static boolean is_pentomino_placable(int[][] board, int[][] pentomino) {
 		for (int i = 0; i < pentomino.length; i++) {
 			for (int j = 0; j < pentomino[0].length; j++) {
 				if (pentomino[i][j] != 0 && board[i][j] != 0)
