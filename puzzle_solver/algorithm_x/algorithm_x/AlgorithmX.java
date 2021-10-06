@@ -35,19 +35,14 @@ public class AlgorithmX {
 	}
 
 	private static int[] algorithm_x(int[][] matrix) {
-		int[] partialSolution = new int[0];
-
 		if (matrix.length == 0)
 			return new int[0]; // failure, abandon branch
 
 		// check if the matrix is solved)
 		int remainingRow = check_if_solved(matrix);
 
-		if (remainingRow != -1) {
-			// add the remaining row to the partialSolution
-			partialSolution = ArrayUtils.add_element(partialSolution, remainingRow);
-			return partialSolution; // success!
-		}
+		if (remainingRow != -1)
+			return new int[] { remainingRow }; // success!
 
 		int c = column_with_least_ones(matrix);
 
@@ -60,8 +55,8 @@ public class AlgorithmX {
 				// create a copy of the matrix so we don't overwrite it
 				int[][] tmpMatrix = matrix.clone();
 
-				// add row to answer
-				partialSolution = ArrayUtils.add_element(partialSolution, tmpMatrix[r][0]);
+				// save selected row number
+				int rowNumber = tmpMatrix[r][0];
 
 				int[] rowsToRemove = new int[0];
 				int[] colsToRemove = new int[0];
@@ -88,17 +83,13 @@ public class AlgorithmX {
 				if (tmpMatrix.length > 0)
 					tmpMatrix = ArrayUtils.remove_col(tmpMatrix, colsToRemove);
 
-				// recursive call, it will return an array containing all answers if it succeeds
+				// recursive call
 				int[] newPartialSolution = algorithm_x(tmpMatrix);
 
 				// newPartialSolution will have a non-zero length if it succeeds
-				if (newPartialSolution.length != 0) {
-					partialSolution = ArrayUtils.add(partialSolution, newPartialSolution);
-					return partialSolution;
-				}
+				if (newPartialSolution.length != 0)
+					return ArrayUtils.add_element(newPartialSolution, rowNumber);
 
-				// remove row r we added earlier
-				partialSolution = ArrayUtils.remove_last_element(partialSolution);
 			}
 		}
 

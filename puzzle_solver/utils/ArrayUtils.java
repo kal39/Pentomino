@@ -182,9 +182,6 @@ public class ArrayUtils {
 	}
 
 	public static int[][] remove_row(int in[][], int row) {
-		if (row > in.length - 1 || row < 0)
-			return in; // row out of bounds
-
 		int[][] out = new int[in.length - 1][];
 
 		for (int i = 0; i < row; i++) {
@@ -198,20 +195,16 @@ public class ArrayUtils {
 	}
 
 	public static int[][] remove_row(int in[][], int rows[]) {
-		int[][] out = in.clone();
-
 		Arrays.sort(rows);
+
 		for (int i = 0; i < rows.length; i++) {
-			out = ArrayUtils.remove_row(out, rows[i] - i);
+			in = ArrayUtils.remove_row(in, rows[i] - i);
 		}
 
-		return out;
+		return in;
 	}
 
 	public static int[][] remove_col(int in[][], int column) {
-		if (column > in[0].length - 1)
-			return in; // column out of bounds
-
 		int[][] out = new int[in.length][];
 
 		for (int i = 0; i < out.length; i++) {
@@ -229,13 +222,12 @@ public class ArrayUtils {
 	}
 
 	public static int[][] remove_col(int in[][], int columns[]) {
-		int[][] out = in.clone();
-
 		Arrays.sort(columns);
+
 		for (int i = 0; i < columns.length; i++) {
-			out = ArrayUtils.remove_col(out, columns[i] - i);
+			in = ArrayUtils.remove_col(in, columns[i] - i);
 		}
 
-		return out;
+		return in;
 	}
 }
