@@ -39,10 +39,8 @@ public class AlgorithmX {
 			return new int[0]; // failure, abandon branch
 
 		// check if the matrix is solved)
-		int remainingRow = check_if_solved(matrix);
-
-		if (remainingRow != -1)
-			return new int[] { remainingRow }; // success!
+		if (matrix_is_solved(matrix))
+			return new int[] { matrix[0][0] }; // success!
 
 		int c = column_with_least_ones(matrix);
 
@@ -52,11 +50,11 @@ public class AlgorithmX {
 		// for each row r that has a 1 in column c
 		for (int r = 0; r < matrix.length; r++) {
 			if (matrix[r][c] == 1) {
+				// save selected row number
+				int rowNumber = matrix[r][0];
+
 				// create a copy of the matrix so we don't overwrite it
 				int[][] tmpMatrix = matrix.clone();
-
-				// save selected row number
-				int rowNumber = tmpMatrix[r][0];
 
 				int[] rowsToRemove = new int[0];
 				int[] colsToRemove = new int[0];
@@ -64,7 +62,7 @@ public class AlgorithmX {
 				// for each column j that has a 1 in row r
 				for (int j = 1; j < tmpMatrix[0].length; j++) {
 					if (tmpMatrix[r][j] == 1) {
-						// only add the column if it's a new row (we don't want duplicates)
+						// only add the column if it's a new column (we don't want duplicates)
 						colsToRemove = ArrayUtils.add_distinct_element(colsToRemove, j);
 
 						// for each row i that has a 1 in column j
@@ -116,15 +114,15 @@ public class AlgorithmX {
 	 * length 0
 	 */
 
-	private static int check_if_solved(int[][] matrix) {
+	private static Boolean matrix_is_solved(int[][] matrix) {
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[0].length; j++) {
 				if (matrix[i][j] == 0)
-					return -1;
+					return false;
 			}
 		}
 
-		return matrix[0][0];
+		return true;
 	}
 
 	/*
