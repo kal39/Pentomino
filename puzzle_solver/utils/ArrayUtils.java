@@ -60,7 +60,7 @@ public class ArrayUtils {
 	public static void print(int[][] array) {
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0; j < array[0].length; j++) {
-				System.out.print(array[i][j] + " ");
+				System.out.print(String.format("%02d", array[i][j]) + " ");
 			}
 			System.out.println();
 		}
@@ -170,12 +170,10 @@ public class ArrayUtils {
 
 	public static int[] convert(int[][] in) {
 		// int[] out = new int[in.length * in[0].length];
-		int[] out = new int[0];
+		int[] out = new int[in.length * in[0].length];
 
 		for (int i = 0; i < in.length; i++) {
-			for (int j = 0; j < in[0].length; j++) {
-				out = add_element(out, in[i][j]);
-			}
+			System.arraycopy(in[i], 0, out, in[0].length * i, in[0].length);
 		}
 
 		return out;
@@ -183,13 +181,8 @@ public class ArrayUtils {
 
 	public static int[][] remove_row(int in[][], int row) {
 		int[][] out = new int[in.length - 1][];
-
-		for (int i = 0; i < row; i++) {
-			out[i] = in[i];
-		}
-		for (int i = row; i < out.length; i++) {
-			out[i] = in[i + 1];
-		}
+		System.arraycopy(in, 0, out, 0, row);
+		System.arraycopy(in, row + 1, out, row, in.length - row - 1);
 
 		return out;
 	}
@@ -205,17 +198,11 @@ public class ArrayUtils {
 	}
 
 	public static int[][] remove_col(int in[][], int column) {
-		int[][] out = new int[in.length][];
+		int[][] out = new int[in.length][in[0].length - 1];
 
 		for (int i = 0; i < out.length; i++) {
-			out[i] = new int[in[0].length - 1];
-
-			for (int j = 0; j < column; j++) {
-				out[i][j] = in[i][j];
-			}
-			for (int j = column; j < out[0].length; j++) {
-				out[i][j] = in[i][j + 1];
-			}
+			System.arraycopy(in[i], 0, out[i], 0, column);
+			System.arraycopy(in[i], column + 1, out[i], column, in[0].length - column - 1);
 		}
 
 		return out;

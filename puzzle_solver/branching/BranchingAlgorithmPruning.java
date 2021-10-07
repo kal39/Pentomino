@@ -2,28 +2,20 @@ package puzzle_solver.branching;
 
 import puzzle_solver.utils.*;
 
-public class branching_algorithm_pruning {
-	static int NODES = 0;
-
+public class BranchingAlgorithmPruning {
 	static int WIDTH = 12;
 	static int HEIGHT = 5;
-	static char[] LETTERS = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F' };
+	static char[] PENTOMINOS = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N', 'F' };
 
 	public static void main(String[] args) {
 		int[][] board = new int[HEIGHT][WIDTH];
-
-		long t1 = System.nanoTime();
-
-		board = solve(LETTERS, WIDTH, HEIGHT);
-
-		long t2 = System.nanoTime();
-
-		double t = (double) (t2 - t1) / 1000000000;
-
+		board = solve(PENTOMINOS, WIDTH, HEIGHT);
 		ArrayUtils.print(board);
-
-		System.out.println("NODES: " + NODES + ", time: " + t + " s");
 	}
+
+	/*
+	 * This method creates and initializes and calls the recursive method
+	 */
 
 	public static int[][] solve(char[] shapes, int width, int height) {
 		int[][] board = new int[height][width];
@@ -32,6 +24,7 @@ public class branching_algorithm_pruning {
 		if (answer.length == 0)
 			return answer;
 
+		// just for gui output purposes
 		for (int i = 0; i < answer.length; i++) {
 			for (int j = 0; j < answer[0].length; j++) {
 				answer[i][j]--;
@@ -41,24 +34,30 @@ public class branching_algorithm_pruning {
 		return answer;
 	}
 
+	/*
+	 * This recursive method actually solves the puzzle
+	 */
+
 	static int[][] recursive_branching(int[][] board, char[] shapes, int n) {
-		NODES++;
-
 		if (isBoardFull(board))
-			return board;
+			return board; // success
 
+		// pruning (checks if the connected remaining spaces are a multiple of 5)
 		if (isSolvable(board) == false)
-			return new int[0][0];
+			return new int[0][0]; // failure, abandon branch
 
 		int[][][] orientations = PentominoShapes.get_pentomino_variations(shapes[n]);
 
+		// for each orientation of a pentomino
 		for (int i = 0; i < orientations.length; i++) {
-
 			int[][][] placements = get_placements(orientations[i], board[0].length, board.length);
 
+			// for each placement of a pentomino at a given orientation
 			for (int j = 0; j < placements.length; j++) {
 				if (is_pentomino_placable(board, placements[j])) {
 					int[][] newBoard = recursive_branching(add_boards(board, placements[j], n + 1), shapes, n + 1);
+
+					// the recursive method returns non-zero if it succeeds
 					if (newBoard.length != 0)
 						return newBoard;
 				}
@@ -67,6 +66,10 @@ public class branching_algorithm_pruning {
 
 		return new int[0][0];
 	}
+
+	/*
+	 * Checks if the board is full
+	 */
 
 	static boolean isBoardFull(int[][] board) {
 		for (int i = 0; i < board.length; i++) {
@@ -127,6 +130,10 @@ public class branching_algorithm_pruning {
 		return true;
 	}
 
+	/*
+	 * Checks if the number connected remaining spaces is a multiple of 5
+	 */
+
 	static Boolean isSolvable(int[][] board) {
 		int[][] newBoard = copy_array(board);
 
@@ -162,6 +169,12 @@ public class branching_algorithm_pruning {
 		return c;
 	}
 
+	/*
+	 * This recursive method takes a 2d array filled with '0's and '1's and returns
+	 * a 2d array where all empty ('0') cells connected with the initial cell at (x,
+	 * y) are converted into '-1's
+	 */
+
 	static int[][] empty_cells(int[][] board, int x, int y) {
 		int[][] newBoard = board.clone();
 		newBoard[y][x] = -1;
@@ -189,6 +202,11 @@ public class branching_algorithm_pruning {
 
 		return newBoard;
 	}
+
+	/*
+	 * Just to make sure arrays are actually deep-copied instead of doing something
+	 * else
+	 */
 
 	static int[][] copy_array(int[][] in) {
 		int[][] out = new int[in.length][in[0].length];

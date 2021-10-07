@@ -7,20 +7,20 @@ package puzzle_solver.basic;
 
 import java.util.Random;
 
+import puzzle_solver.utils.ArrayUtils;
+
 /**
  * This class includes the methods to support the search of a solution.
  */
 
 public class Search {
-	// Static UI class to display the board
-	// public static UI ui = new UI(width, height, 50);
+	static final int WIDTH = 5;
+	static final int HEIGHT = 3;
+	static final char[] PENTOMINOS = { 'U', 'P', 'V' };
 
-	/**
-	 * Main function. Needs to be executed to start the basic search algorithm
-	 */
 	public static void main(String[] args) {
-		char[] input = { 'X', 'I', 'Z', 'T', 'U', 'V', 'W', 'Y', 'L', 'P', 'N' };
-		search(12, 5, input);
+		int[][] result = search(WIDTH, HEIGHT, PENTOMINOS);
+		ArrayUtils.print(result);
 	}
 
 	/**

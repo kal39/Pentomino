@@ -31,7 +31,7 @@ import java.util.Scanner;
  */
 public class PentominoDatabase {
 	// Stores and loads the data on program initialization
-	public static int[][][][] data = loadData("pentominos.csv");
+	public static int[][][][] data = loadData("puzzle_solver/basic/pentominos.csv");
 
 	/**
 	 * Loads and decodes the CSV file
@@ -88,23 +88,4 @@ public class PentominoDatabase {
 		return staticList;
 	}
 
-	/**
-	 * Main function used for visualizing and debugging reading the csv file with
-	 * pieces Should not be called while searching for a solution
-	 */
-	public static void main(String[] args) {
-		for (int i = 0; i < data.length; i++) {
-			for (int j = 0; j < data[i].length; j++) {
-				System.out.print(i + "," + j + "," + data[i][j].length + "," + data[i][j][0].length);
-
-				for (int k = 0; k < data[i][j].length; k++) {
-					for (int l = 0; l < data[i][j][k].length; l++) {
-						System.out.print("," + data[i][j][k][l]);
-					}
-				}
-
-				System.out.println();
-			}
-		}
-	}
 }

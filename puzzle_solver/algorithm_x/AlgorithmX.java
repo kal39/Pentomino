@@ -1,4 +1,4 @@
-package puzzle_solver.algorithm_x.algorithm_x;
+package puzzle_solver.algorithm_x;
 
 import puzzle_solver.utils.*;
 
@@ -8,21 +8,6 @@ import puzzle_solver.utils.*;
  */
 
 public class AlgorithmX {
-
-	/*
-	 * For testing purposes:
-	 */
-
-	public static void main(String[] args) {
-		int[][] test = { { 1, 0, 0, 1, 0, 0, 1 }, { 1, 0, 0, 1, 0, 0, 0 }, { 0, 0, 0, 1, 1, 0, 1 },
-				{ 0, 0, 1, 0, 1, 1, 0 }, { 0, 1, 1, 0, 0, 1, 1 }, { 0, 1, 0, 0, 0, 0, 1 } };
-
-		int[] result = solve(test);
-
-		System.out.print("Choose these rows: ");
-		ArrayUtils.print(result);
-	}
-
 	/*
 	 * Solves and the exact cover problem using algorithm X If it was not able to
 	 * solve it, it will return a array of length 0

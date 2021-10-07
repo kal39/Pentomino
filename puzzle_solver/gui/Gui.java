@@ -5,11 +5,11 @@ import javax.swing.*;
 import java.awt.*;
 // import java.util.Random;
 
-import puzzle_solver.algorithm_x.solver.*;
+import puzzle_solver.algorithm_x.*;
 import puzzle_solver.basic.*;
 import puzzle_solver.branching.*;
 
-public class gui {
+public class Gui {
 	static final int width = 800;
 	static final int height = 600;
 
@@ -145,7 +145,7 @@ public class gui {
 		int widthInt = Integer.parseInt(widthString);
 		int heightInt = Integer.parseInt(heightString);
 
-		return branching_algorithm_pruning.solve(letters, widthInt, heightInt);
+		return BranchingAlgorithmPruning.solve(letters, widthInt, heightInt);
 	}
 
 	private static int[][][] parse_and_run_algo_x(String lettersString, String widthString, String heightString) {
@@ -162,7 +162,7 @@ public class gui {
 		int heightInt = Integer.parseInt(heightString);
 
 		// if (!(width > 0 && height > 0 && letters.length > 0))
-		return Solver.create_and_solve(widthInt, heightInt, letters);
+		return AlgoXSolver.create_and_solve(widthInt, heightInt, letters);
 
 	}
 
