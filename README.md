@@ -18,9 +18,9 @@ There are three algorithms available: `Basic` (based on the code provided by the
 
 In order to run the algorithms directly without a GUI:
 
--  `Basic`: run the `main` method in `puzzle_solver/basic/Search.java/Search`
--  `Branching`: run the `main` method in `puzzle_solver/branching/BranchingAlgorithmPruning.java/BranchingAlgorithmPruning`
--  `Algorithm X`: run the `main` method in `puzzle_solver/algorithm_x/AlgoXSolver.java/AlgoXSolver`
+-  `Basic`: run the `main` method in `puzzle_solver/basic/Search.java`
+-  `Branching`: run the `main` method in `puzzle_solver/branching/BranchingAlgorithmPruning.java`
+-  `Algorithm X`: run the `main` method in `puzzle_solver/algorithm_x/AlgoXSolver.java`
 
 To change the board width, board height, and allowed pentominos, change the values of `WIDTH`, `HEIGHT`, and `PENTOMINOS` respectively.
 
