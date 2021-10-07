@@ -8,7 +8,7 @@ Qi Cui, Niklas Druba, Kai Kitagawa-Jones, Guillerme Pereira Sequeira, Irena Shal
 
 ## Purpose of Project
 
-The purpose of the project is to position pentominoes into a rectangle with the aid of efficient algorithms.The field has to fill this field with pentominoes. The algorithms are responsible for choosing a position, a rotation and a flipping for each pentomino and checking whether the pentominoes fits correctly in the rectangle, by avoiding overlapping. After a series of combinations, throughout rotations finilized to fit the pentominoes.
+The purpose of the project is to position pentominoes into a rectangle with the aid of efficient algorithms. The rectangular board has to be filled with pentominoes in order to be complete. The algorithms are responsible for choosing a position, a rotation and a flipping for each pentomino and checking whether the pentominoes fits correctly in the rectangle, by avoiding overlapping. After a series of combinations, throughout rotations finalised to fit the pentominoes.
 
 ## Usage Instructions
 
