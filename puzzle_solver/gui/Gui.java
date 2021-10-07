@@ -1,10 +1,12 @@
 package puzzle_solver.gui;
 
+/*
+ * The GUI. Not great code, but it works.
+ */
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
-// import java.util.Random;
-
 import puzzle_solver.algorithm_x.*;
 import puzzle_solver.basic.*;
 import puzzle_solver.branching.*;
@@ -161,7 +163,6 @@ public class Gui {
 		int widthInt = Integer.parseInt(widthString);
 		int heightInt = Integer.parseInt(heightString);
 
-		// if (!(width > 0 && height > 0 && letters.length > 0))
 		return AlgoXSolver.create_and_solve(widthInt, heightInt, letters);
 
 	}

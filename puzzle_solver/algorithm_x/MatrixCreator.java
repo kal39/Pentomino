@@ -111,7 +111,7 @@ public class MatrixCreator {
 
 				// check if the placement is valid (using the pruning method from the branching
 				// algorithm)
-				if (isSolvable(board))
+				if (puzzle_solver.branching.Pruning.isSolvable(board))
 					placements = ArrayUtils.add_element(placements, board);
 			}
 		}
@@ -133,80 +133,6 @@ public class MatrixCreator {
 		}
 
 		return board;
-	}
-
-	static Boolean isSolvable(int[][] board) {
-		int[][] newBoard = copy_array(board);
-
-		int prevMinusOnes = 0;
-
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[0].length; j++) {
-				if (newBoard[i][j] == 0) {
-					newBoard = empty_cells(newBoard, j, i);
-					int totalMinusOnes = count_minus_ones(newBoard);
-					int minusOnes = totalMinusOnes - prevMinusOnes;
-
-					if (minusOnes % 5 != 0) {
-						return false;
-					}
-
-					prevMinusOnes = totalMinusOnes;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	static int count_minus_ones(int board[][]) {
-		int c = 0;
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[0].length; j++) {
-				if (board[i][j] == -1)
-					c++;
-			}
-		}
-		return c;
-	}
-
-	static int[][] empty_cells(int[][] board, int x, int y) {
-		int[][] newBoard = board.clone();
-		newBoard[y][x] = -1;
-
-		if (x - 1 >= 0) {
-			if (board[y][x - 1] == 0) {
-				board = empty_cells(board, x - 1, y);
-			}
-		}
-		if (y - 1 >= 0) {
-			if (board[y - 1][x] == 0) {
-				board = empty_cells(board, x, y - 1);
-			}
-		}
-		if (x + 1 < board[0].length) {
-			if (board[y][x + 1] == 0) {
-				board = empty_cells(board, x + 1, y);
-			}
-		}
-		if (y + 1 < board.length) {
-			if (board[y + 1][x] == 0) {
-				board = empty_cells(board, x, y + 1);
-			}
-		}
-
-		return newBoard;
-	}
-
-	static int[][] copy_array(int[][] in) {
-		int[][] out = new int[in.length][in[0].length];
-
-		for (int i = 0; i < in.length; i++) {
-			for (int j = 0; j < in[0].length; j++) {
-				out[i][j] = in[i][j];
-			}
-		}
-		return out;
 	}
 
 	public static void print_board(int[][] board) {
