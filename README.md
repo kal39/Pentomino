@@ -12,7 +12,7 @@ Develop an efficient algorithm to solve the pentomino puzzle.
 
 ## Usage Instructions
 
-Run the `main` method in `puzzle_solver/gui/Gui.java/Gui` to start the GUI. The board size and the pentominos to use can be changed inside the GUI.
+Run the `main` method in `puzzle_solver/gui/Gui.java` (for example, through `VSCode` or with `javac puzzle_solver/gui/Gui.java; java puzzle_solver/gui/Gui`) to start the GUI. The board size and the pentominos to use can be changed inside the GUI.
 
 There are three algorithms available: `Basic` (based on the code provided by the university), `Branching` (a branching algorithm with pruning), and `Algorithm X` (an method that uses Algorithm X). The algorithms can also be selected from the GUI.
 
